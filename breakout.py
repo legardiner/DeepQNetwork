@@ -38,14 +38,15 @@ def main(args):
     # Reset tensorflow graph
     tf.reset_default_graph()
     # Initialize both networks
-    targetNetwork = DQN(learning_rate=args.learning_rate,
-                             state_size=args.state_size,
-                             action_size=args.action_size,
-                            name="targetNetwork")
     evaluationNetwork = DQN(learning_rate=args.learning_rate,
                              state_size=args.state_size,
                              action_size=args.action_size,
                             name="evaluationNetwork")
+    targetNetwork = DQN(learning_rate=args.learning_rate,
+                             state_size=args.state_size,
+                             action_size=args.action_size,
+                            name="targetNetwork")
+
     # Initialize image preprocessor
     state_processor = StateProcessor()
     # Initialize parameter updater
@@ -167,13 +168,13 @@ def main(args):
             total_game_reward = sum(game_rewards)
             avg_max_Q = np.mean(max_Q_values)
 
-            summary = sess.run(evaluationNetwork.summary_op, feed_dict={evaluationNetwork.avg_max_Q: avg_max_Q, 
-                                                                        evaluationNetwork.total_game_reward: total_game_reward})
+            summary = sess.run(evaluationNetwork.summary_op, feed_dict={evaluationNetwork.epoch_loss: loss,
+                                                                        evaluationNetwork.avg_max_Q: avg_max_Q, 
+                                                                    evaluationNetwork.total_game_reward: total_game_reward})
 
             
-            
             # Log and save models
-            logging.info("Epoch: {0}\tMax Q: {1}\tTotal Reward: {2}".format(epoch, avg_max_Q, total_game_reward))
+            logging.info("Epoch: {0}\tAvg Max Q: {1}\tTotal Reward: {2}".format(epoch, avg_max_Q, total_game_reward))
 
             if epoch % 10 == 0:
                     saver.save(sess, "./model{0}.ckpt".format(epoch))

@@ -23,6 +23,7 @@ class DQN():
                 tf.float32, [None, action_size], name="actions")
             self.target_Q = tf.placeholder(
                 tf.float32, [None], name="target_Q")
+            self.epoch_loss = tf.placeholder(tf.float32, name="epoch_loss")
             self.avg_max_Q = tf.placeholder(tf.float32, name="avg_max_Q")
             self.total_game_reward = tf.placeholder(tf.float32, name="total_game_reward")
             self.scope = name
@@ -72,7 +73,7 @@ class DQN():
             self.optimizer = tf.train.AdamOptimizer(learning_rate)
             self.train = self.optimizer.minimize(self.losses)
         with tf.variable_scope("summaries"):
-            # tf.summary.scalar("loss", self.loss)
+            tf.summary.scalar("epoch_loss", self.epoch_loss)
             tf.summary.scalar("avg_max_Q", self.avg_max_Q)
             tf.summary.scalar("total_game_reward", self.total_game_reward)
             self.summary_op = tf.summary.merge_all()
