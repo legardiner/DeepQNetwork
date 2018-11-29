@@ -67,11 +67,12 @@ class DQN():
         with tf.variable_scope("Q"):
             self.Q = tf.reduce_sum(tf.multiply(self.fc2, self.actions_), axis=1)
         with tf.variable_scope("loss"):
-            self.losses = tf.losses.huber_loss(self.target_Q, self.Q)
-            self.loss = tf.reduce_mean(self.losses)
+            # self.losses = tf.losses.huber_loss(self.target_Q, self.Q)
+            # self.loss = tf.reduce_mean(self.losses)
+            self.loss = tf.reduce_mean(tf.square(self.target_Q - self.Q))
         with tf.variable_scope("train"):
             self.optimizer = tf.train.AdamOptimizer(learning_rate)
-            self.train = self.optimizer.minimize(self.losses)
+            self.train = self.optimizer.minimize(self.loss)
         with tf.variable_scope("summaries"):
             tf.summary.scalar("epoch_loss", self.epoch_loss)
             tf.summary.scalar("avg_max_Q", self.avg_max_Q)
