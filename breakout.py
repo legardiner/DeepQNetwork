@@ -14,15 +14,15 @@ parser.add_argument('--learning_rate', default=0.0002, help='Learning rate for \
                     optimizer')
 parser.add_argument('--discount_rate', default=0.95, help='Discount rate for \
                     future rewards')
-parser.add_argument('--epochs', default=400, help='Number of epochs to train')
+parser.add_argument('--epochs', default=100000, help='Number of epochs to train')
 parser.add_argument('--stack_size', default=4, help='Number of frames to stack')
 parser.add_argument('--state_size', default=[84, 84, 4], help='Number of state values')
 parser.add_argument('--action_size', default=4, help='Number of actions')
 parser.add_argument('--output_size', default=1, help='Number of output neurons \
                     for value function network')
-parser.add_argument('--buffer_size', default=500000, help='Max number of memories in the replay buffer')
-parser.add_argument('--batch_size', default=32, help='Number of memories to sample from the replay buffer')
-parser.add_argument('--decay_rate', default=0.0001, help='Exponential decay rate for epsilon greedy')
+parser.add_argument('--buffer_size', default=1000000, help='Max number of memories in the replay buffer')
+parser.add_argument('--batch_size', default=64, help='Number of memories to sample from the replay buffer')
+parser.add_argument('--decay_rate', default=0.00001, help='Exponential decay rate for epsilon greedy')
 parser.add_argument('--log_dir', default='logs/breakout/', help='Path to directory for logs for \
                     tensorboard visualization')
 parser.add_argument('--run_num', required=True, help='Provide a run number to correctly log')
