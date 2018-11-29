@@ -38,7 +38,7 @@ class DQN():
                 activation=tf.nn.relu, use_bias=False, name='conv1'
             )
             self.conv2 = tf.layers.conv2d(
-                inputs = self.inputs_, 
+                inputs = self.conv1, 
                 filters = 64,
                 kernel_size = [4,4],
                 strides = [2,2],
@@ -47,7 +47,7 @@ class DQN():
                 activation=tf.nn.relu, use_bias=False, name='conv2'
             )
             self.conv3 = tf.layers.conv2d(
-                inputs = self.inputs_, 
+                inputs = self.conv2, 
                 filters = 128,
                 kernel_size = [4,4],
                 strides = [2,2],
