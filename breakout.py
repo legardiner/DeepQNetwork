@@ -175,7 +175,7 @@ def main(args):
             
             # Log and save models
             logging.info("Epoch: {0}\tAvg Max Q: {1}\tTotal Reward: {2}".format(epoch, avg_max_Q, total_game_reward))
-
+            writer.add_summary(summary, epoch)
             if epoch % 10 == 0:
                     saver.save(sess, "./model{0}.ckpt".format(epoch))
                     print("Model Saved")
