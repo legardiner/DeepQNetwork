@@ -73,7 +73,7 @@ class DQN():
         with tf.variable_scope("train"):
             # self.optimizer = tf.train.MomentumOptimizer(learning_rate, 0.95, use_nesterov=True)
             # self.optimizer = tf.train.AdamOptimizer(learning_rate)
-            self.optimizer = tf.train.RMSPropOptimizer(learning_rate, 0.99, 0.0, 1e-6)
+            self.optimizer = tf.train.RMSPropOptimizer(learning_rate)
             self.train = self.optimizer.minimize(self.losses)
         with tf.variable_scope("summaries"):
             tf.summary.scalar("epoch_loss", self.epoch_loss)
