@@ -181,7 +181,7 @@ def main(args):
                     print("Model Saved")
 
             if step % 10000 == 0:
-                estimator_copy.make(sess)
+                update_parameters.make(sess)
                 logging.info("\nCopied model parameters to target network.")
 
 if __name__ == "__main__":
