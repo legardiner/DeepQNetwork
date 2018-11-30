@@ -63,7 +63,7 @@ class DQN():
             self.fc2 = tf.layers.dense(
                 self.fc1, units=action_size,
                 kernel_initializer=tf.variance_scaling_initializer(scale=2),
-                activation=None)
+                activation=tf.nn.relu)
         with tf.variable_scope("Q"):
             self.Q = tf.reduce_sum(tf.multiply(self.fc2, self.actions_), axis=1)
         with tf.variable_scope("loss"):
