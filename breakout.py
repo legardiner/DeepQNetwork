@@ -69,10 +69,10 @@ def main(args):
         # Initialize a new game
         state = env.reset()
         # Initialize deque with zero-images one array for each image
-        stacked_frames =deque([np.zeros((84,84), dtype=np.int) for i in range(stack_size)], maxlen=4)
+        stacked_frames = [np.zeros((84,84), dtype=np.int) for i in range(stack_size)]
         # Preprocess and stack frames
         state = state_processor.process(sess, state)
-        state, stacked_frames = stack_frames(stacked_frames, state, stack_size, True)
+        state, stacked_frames = stack_frames(stacked_frames, (84, 84), state, stack_size, True)
         # Run the game/episode until it's done
         while True:
             # Take action based on epsilon greedy
@@ -85,12 +85,12 @@ def main(args):
             one_hot_action[action] = 1
             if done:
                 next_state = np.zeros((84,84), dtype=np.int)
-                next_state, stacked_frames = stack_frames(stacked_frames, next_state, stack_size, False)
+                next_state, stacked_frames = stack_frames(stacked_frames, (84, 84), next_state, stack_size, False)
                 memory.add((state, one_hot_action, reward, next_state, done))
                 break
             else:
                 next_state = state_processor.process(sess, next_state)
-                next_state, stacked_frames = stack_frames(stacked_frames, next_state, stack_size, False)
+                next_state, stacked_frames = stack_frames(stacked_frames, (84, 84), next_state, stack_size, False)
                 memory.add((state, one_hot_action, reward, next_state, done))
                 state = next_state
 
@@ -103,10 +103,10 @@ def main(args):
             # Initialize max Q values for the episode
             max_Q_values = []
             # Initialize deque with zero-images one array for each image
-            stacked_frames =deque([np.zeros((84,84), dtype=np.int) for i in range(stack_size)], maxlen=4)
+            stacked_frames = [np.zeros((84,84), dtype=np.int) for i in range(stack_size)]
             # Preprocess and stack frames
             state = state_processor.process(sess, state)
-            state, stacked_frames = stack_frames(stacked_frames, state, stack_size, True)
+            state, stacked_frames = stack_frames(stacked_frames, (84, 84), state, stack_size, True)
             # Run the game/episode until it's done
             while True:
                 # Take action based on epsilon greedy
@@ -156,12 +156,12 @@ def main(args):
 
                 if done:
                     next_state = np.zeros((84,84), dtype=np.int)
-                    next_state, stacked_frames = stack_frames(stacked_frames, next_state, stack_size, False)
+                    next_state, stacked_frames = stack_frames(stacked_frames, (84, 84), next_state, stack_size, False)
                     memory.add((state, one_hot_action, reward, next_state, done))
                     break
                 else:
                     next_state = state_processor.process(sess, next_state)
-                    next_state, stacked_frames = stack_frames(stacked_frames, next_state, stack_size, False)
+                    next_state, stacked_frames = stack_frames(stacked_frames, (84, 84), next_state, stack_size, False)
                     memory.add((state, one_hot_action, reward, next_state, done))
                     state = next_state
             # After iterating through all episodes in an epoch, calculate and store the average total reward 

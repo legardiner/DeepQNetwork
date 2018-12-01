@@ -84,7 +84,7 @@ class DQN():
 def stack_frames(stacked_frames, frame_dim, frame, stack_size, is_new_episode):    
     if is_new_episode:
         # Clear our stacked_frames
-        stacked_frames = deque([np.zeros(frame_dim, dtype=np.int) for i in range(stack_size)], maxlen=4)
+        stacked_frames = [np.zeros(frame_dim, dtype=np.int) for i in range(stack_size)]
         
         # Because we're in a new episode, copy the same frame 4x
         stacked_frames.append(frame)
@@ -93,14 +93,14 @@ def stack_frames(stacked_frames, frame_dim, frame, stack_size, is_new_episode):
         stacked_frames.append(frame)
         
         # Stack the frames
-        stacked_state = np.stack(stacked_frames, axis=2)
+        stacked_state = np.stack(stacked_frames[-4:], axis=2)
         
     else:
         # Append frame to deque, automatically removes the oldest frame
         stacked_frames.append(frame)
 
         # Build the stacked state (first dimension specifies different frames)
-        stacked_state = np.stack(stacked_frames, axis=2) 
+        stacked_state = np.stack(stacked_frames[-4:], axis=2) 
     
     return stacked_state, stacked_frames
 
