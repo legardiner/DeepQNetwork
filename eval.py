@@ -4,8 +4,9 @@ import argparse
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
-from helper import StateProcessor, DQN, stack_frames, ModelParametersCopier, ReplayBuffer, predict_action
+from helper import StateProcessor, DQN, stack_frames, ReplayBuffer, predict_action
 from collections import deque
+import logging
 import os
 
 parser = argparse.ArgumentParser(description='Deep Q Network reinforcement \
