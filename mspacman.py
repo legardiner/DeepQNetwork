@@ -77,7 +77,7 @@ def main(args):
         # Initialize a new game
         state = env.reset()
         # Initialize deque with zero-images one array for each image
-        stacked_frames =deque([np.zeros((88,80), dtype=np.int) for i in range(stack_size)], maxlen=4)
+        stacked_frames =[np.zeros((88,80), dtype=np.int) for i in range(stack_size)]
         # Preprocess and stack frames
         state = preprocess_observation(state)
         state, stacked_frames = stack_frames(stacked_frames, (88, 80), state, stack_size, True)
@@ -111,7 +111,7 @@ def main(args):
             # Initialize max Q values for the episode
             max_Q_values = []
             # Initialize deque with zero-images one array for each image
-            stacked_frames =deque([np.zeros((88,80), dtype=np.int) for i in range(stack_size)], maxlen=4)
+            stacked_frames = [np.zeros((88,80), dtype=np.int) for i in range(stack_size)]
             # Preprocess and stack frames
             state = preprocess_observation(state)
             state, stacked_frames = stack_frames(stacked_frames, (88, 80), state, stack_size, True)
