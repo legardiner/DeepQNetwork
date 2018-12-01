@@ -3,7 +3,6 @@ import gym.spaces
 import argparse
 import numpy as np
 import tensorflow as tf
-import matplotlib.pyplot as plt
 from helper import StateProcessor, DQN, stack_frames, ReplayBuffer, predict_action
 from collections import deque
 import logging
@@ -51,8 +50,6 @@ def main(args):
 
     # Initialize image preprocessor
     state_processor = StateProcessor()
-    # Initialize parameter updater
-    update_parameters = ModelParametersCopier(evaluationNetwork, targetNetwork)
     # Initalize trainer
     saver = tf.train.Saver()
     # Initialize step counter
