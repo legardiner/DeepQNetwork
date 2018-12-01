@@ -10,7 +10,7 @@ from helper import StateProcessor, DQN, stack_frames, ModelParametersCopier, Rep
 
 parser = argparse.ArgumentParser(description='Deep Q Network reinforcement \
                                  learning model for breakout game')
-parser.add_argument('--learning_rate', default=0.0001, help='Learning rate for \
+parser.add_argument('--learning_rate', default=0.001, help='Learning rate for \
                     optimizer')
 parser.add_argument('--discount_rate', default=0.95, help='Discount rate for \
                     future rewards')
