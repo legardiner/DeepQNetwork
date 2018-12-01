@@ -48,9 +48,9 @@ class DQN():
             )
             self.conv3 = tf.layers.conv2d(
                 inputs = self.conv2, 
-                filters = 64,
-                kernel_size = [3,3],
-                strides = [1,1],
+                filters = 128,
+                kernel_size = [4,4],
+                strides = [2,2],
                 padding = "VALID",
                 kernel_initializer=tf.variance_scaling_initializer(scale=2),
                 activation=tf.nn.relu, use_bias=False, name='conv3'

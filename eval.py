@@ -25,7 +25,7 @@ parser.add_argument('--batch_size', default=64, help='Number of memories to samp
 parser.add_argument('--decay_rate', default=0.00001, help='Exponential decay rate for epsilon greedy')
 parser.add_argument('--log_dir', default='logs/mspacman/', help='Path to directory for logs for \
                     tensorboard visualization')
-parser.add_argument('--model_path', default='mspacman/model5_1340.ckpt', help='Path to model checkpoint')
+parser.add_argument('--model_path', default='mspacman/model5_1350', help='Path to model checkpoint')
 parser.add_argument('--run_num', required=True, help='Provide a run number to correctly log')
 
 def main(args):
@@ -33,7 +33,7 @@ def main(args):
     decay_rate = float(args.decay_rate)
     batch_size = int(args.batch_size)
     # Load game
-    env = gym.make("Breakout-v0")
+    env = gym.make("MsPacman-v0")
     # Initialize the game
     state = env.reset()
     # Reset tensorflow graph
@@ -69,7 +69,7 @@ def main(args):
         # Fill buffer
         # Initialize a new game
         state = env.reset()
-        for game in range(int(arg.num_games)):
+        for game in range(int(args.num_games)):
             # Initialize a new game
             state = env.reset()
             # Initialize rewards for the episode
@@ -77,7 +77,7 @@ def main(args):
             # Initialize deque with zero-images one array for each image
             stacked_frames = [np.zeros((88,80), dtype=np.int) for i in range(stack_size)]
             # Preprocess and stack frames
-            state = preprocess_observation(state)
+            state = state_processor.process(sess, state)
             state, stacked_frames = stack_frames(stacked_frames, (88, 80), state, stack_size, True)
             # Run the game/episode until it's done
             while True:
@@ -98,10 +98,11 @@ def main(args):
                     memory.add((state, one_hot_action, reward, next_state, done))
                     break
                 else:
-                    next_state = preprocess_observation(next_state)
+                    next_state = state_processor.process(sess, next_state)
                     next_state, stacked_frames = stack_frames(stacked_frames, (88, 80), next_state, stack_size, False)
                     memory.add((state, one_hot_action, reward, next_state, done))
                     state = next_state
+
             # After iterating through all frames in a game, calculate the total game reward 
             total_game_reward = sum(game_rewards)
             logging.info("Game {0} Total Reward:\t{1}".format(game, total_game_reward))
