@@ -25,8 +25,16 @@ parser.add_argument('--batch_size', default=64, help='Number of memories to samp
 parser.add_argument('--decay_rate', default=0.00001, help='Exponential decay rate for epsilon greedy')
 parser.add_argument('--log_dir', default='logs/mspacman/', help='Path to directory for logs for \
                     tensorboard visualization')
-parser.add_argument('--model_path', default='mspacman/model5_1350', help='Path to model checkpoint')
+parser.add_argument('--model_path', default='mspacman/model5_1350.ckpt', help='Path to model checkpoint')
 parser.add_argument('--run_num', required=True, help='Provide a run number to correctly log')
+
+def preprocess_observation(obs):
+    mspacman_color = 210 + 164 + 74
+    img = obs[1:176:2, ::2] # crop and downsize
+    img = img.sum(axis=2) # to greyscale
+    img[img==mspacman_color] = 0 # Improve contrast
+    img = (img // 3 - 128).astype(np.int8) # normalize from -128 to 127
+    return img.reshape(88, 80)
 
 def main(args):
     stack_size = int(args.stack_size)
