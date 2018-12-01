@@ -185,7 +185,7 @@ def main(args):
             logging.info("Epoch: {0}\tAvg Max Q: {1}\tTotal Reward: {2}".format(epoch, avg_max_Q, total_game_reward))
             writer.add_summary(summary, epoch)
             if epoch % 10 == 0:
-                    saver.save(sess, "./model{0}.ckpt".format(epoch))
+                    saver.save(sess, "./mspacman/model{0}_{1}.ckpt".format(run_num, epoch))
                     print("Model Saved")
 
             if step % 10000 == 0:
