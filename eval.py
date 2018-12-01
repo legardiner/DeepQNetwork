@@ -106,7 +106,7 @@ def main(args):
                     state = next_state
             # After iterating through all frames in a game, calculate the total game reward 
             total_game_reward = sum(game_rewards)
-            logger.info("Game {0} Total Reward:\t{1}".format(game, total_game_reward))
+            logging.info("Game {0} Total Reward:\t{1}".format(game, total_game_reward))
     
 
 if __name__ == "__main__":
