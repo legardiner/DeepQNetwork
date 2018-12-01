@@ -17,7 +17,7 @@ parser.add_argument('--discount_rate', default=0.95, help='Discount rate for \
 parser.add_argument('--num_games', default=1000, help='Number of games to play')
 parser.add_argument('--stack_size', default=4, help='Number of frames to stack')
 parser.add_argument('--state_size', default=[88, 80, 4], help='Number of state values')
-parser.add_argument('--action_size', default=4, help='Number of actions')
+parser.add_argument('--action_size', default=9, help='Number of actions')
 parser.add_argument('--output_size', default=1, help='Number of output neurons \
                     for value function network')
 parser.add_argument('--buffer_size', default=1000000, help='Max number of memories in the replay buffer')
@@ -77,7 +77,7 @@ def main(args):
             # Initialize deque with zero-images one array for each image
             stacked_frames = [np.zeros((88,80), dtype=np.int) for i in range(stack_size)]
             # Preprocess and stack frames
-            state = state_processor.process(sess, state)
+            state = preprocess_observation(state)
             state, stacked_frames = stack_frames(stacked_frames, (88, 80), state, stack_size, True)
             # Run the game/episode until it's done
             while True:
