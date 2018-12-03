@@ -20,7 +20,7 @@ parser.add_argument('--state_size', default=(88, 80), help='State size')
 parser.add_argument('--action_size', default=9, help='Number of game actions')
 parser.add_argument('--decay_rate', default=0.00001,
                     help='Exponential decay rate for epsilon greedy')
-parser.add_argument('--model_path', default='mspacman/model/model32_0.ckpt',
+parser.add_argument('--model_path', default='mspacman/model/model6_2290.ckpt',
                     help='Path to model checkpoint')
 
 
