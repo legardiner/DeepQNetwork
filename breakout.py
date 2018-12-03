@@ -229,8 +229,8 @@ def main(args):
                          format(epoch, avg_max_Q, total_game_reward))
             writer.add_summary(summary, epoch)
             if epoch % 10 == 0:
-                    saver.save(sess, "./breakout/model{0}_{1}.ckpt".
-                               format(args.run_num, epoch))
+                    saver.save(sess, "{0}/model{1}_{2}.ckpt".
+                               format(args.model_dir, args.run_num, epoch))
                     print("Model Saved")
 
             # Share weights from evaluation network to target network
