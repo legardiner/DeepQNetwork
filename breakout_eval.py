@@ -5,6 +5,7 @@ import numpy as np
 import tensorflow as tf
 import logging
 import os
+import matplotlib.pyplot as plt
 from helper import BreakoutStateProcessor, DQN, ReplayBuffer, stack_frames, \
     predict_action
 
@@ -62,6 +63,8 @@ def main(args):
         sess.run(tf.global_variables_initializer())
         saver.restore(sess, args.model_path)
 
+        rewards = []
+
         # Play games
         for game in range(int(args.num_games)):
             # Initialize a new game
@@ -109,8 +112,12 @@ def main(args):
 
             # Calculate the total game reward
             total_game_reward = sum(game_rewards)
+            rewards.append(total_game_reward)
             logging.info("Game {0} Total Reward:\t{1}".
                          format(game, total_game_reward))
+
+    plt.plot(rewards)
+    plt.savefig('breakout.png')
 
 if __name__ == "__main__":
     log_fmt = '%(asctime)s - %(levelname)s - %(message)s'
